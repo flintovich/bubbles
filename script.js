@@ -136,12 +136,12 @@ window.onload=function(){
     // game more
     var gameMore = document.getElementById('reload');
     gameMore.onclick=function(){
+        document.getElementById('Bugle').currentTime = 0;
+        document.getElementById('Bugle').play();
         Game.circles = [];
         Game.result = [];
         i = 0;
         quesion.style.display='none';
-        document.getElementById('Bugle').currentTime = 0;
-        document.getElementById('Bugle').play();
 
         clear(ctx);
         timedCount();
