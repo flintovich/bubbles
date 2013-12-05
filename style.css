@@ -66,11 +66,16 @@ canvas {
 #game {
     position:relative;
 }
-.quesion{
-    width: 150px;
+#quesion{
+    width: 130px;
     position: absolute;
     top:0;
     right: 0;
-    opacity: 0.6;
+    opacity: 0.7;
     background: #ccc;
+    padding: 10px;
+    display: none;
+}
+#quesion p{
+    font-weight: bold;
 }

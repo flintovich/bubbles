@@ -1,8 +1,10 @@
 window.onload=function(){
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
+    var body = document.getElementsByTagName('body');
+
+    canvas.width = body[0].offsetWidth;
+    canvas.height = body[0].offsetHeight - 5;
     var width = canvas.width;
     var height = canvas.height;
 
@@ -19,6 +21,9 @@ window.onload=function(){
         min = parseInt(min);
         max = parseInt(max);
         return Math.floor( Math.random() * (max - min + 1)) + min;
+    }
+    function clear(ctx) {
+        ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
     }
     function Circle(x,y,radius, r, g, b){
         this.x = x;
@@ -43,7 +48,7 @@ window.onload=function(){
     function timedCount(){
         var x = rand (0, width);
         var y = rand (0, height);
-        var radius = rand (50,200);
+        var radius = rand (80,200);
         var red = rand (50,255);
         var green = rand (50,255);
         var blue = rand (50,255);
@@ -56,6 +61,9 @@ window.onload=function(){
         if(i <= 50){
             setTimeout(timedCount,80);
         } else {
+            var quesion = document.getElementById('quesion');
+            quesion.style.display='block';
+
             var R_result = 0;
             var G_result = 0;
             var B_result = 0;
@@ -86,27 +94,41 @@ window.onload=function(){
 
             red.onclick=function(){
                 re = true;
+                gr = false;
+                bl = false;
+                document.getElementById('magic').currentTime = 0;
+                document.getElementById('magic').play();
             }
             green.onclick=function(){
+                re = false;
                 gr = true;
+                bl = false;
+                document.getElementById('magic').currentTime = 0;
+                document.getElementById('magic').play();
             }
             blue.onclick=function(){
+                re = false;
+                gr = false;
                 bl = true;
+                document.getElementById('magic').currentTime = 0;
+                document.getElementById('magic').play();
             }
             cheсk.onclick=function(){
                 if(re == true && finishResult == R_result){
+                    document.getElementById('cheer').play();
                     alert('Привильный ответ: Красный! Ура!');
                 } else if (gr == true && finishResult == G_result){
+                    document.getElementById('cheer').play();
                     alert('Привильный ответ: Зеленый! Ура!');
                 } else if (bl == true && finishResult == B_result){
+                    document.getElementById('cheer').play();
                     alert('Привильный ответ: Синий! Ура!');
                 } else {
+                    document.getElementById('boo').play();
                     alert('Не правильно!')
                 }
                 return false
             }
-
-
         }
     }
     timedCount();
@@ -114,7 +136,15 @@ window.onload=function(){
     // game more
     var gameMore = document.getElementById('reload');
     gameMore.onclick=function(){
-        location.reload();
+        Game.circles = [];
+        Game.result = [];
+        i = 0;
+        quesion.style.display='none';
+        document.getElementById('Bugle').currentTime = 0;
+        document.getElementById('Bugle').play();
+
+        clear(ctx);
+        timedCount();
     }
 
 }
